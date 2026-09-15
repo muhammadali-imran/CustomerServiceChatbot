@@ -1,9 +1,9 @@
 import os
 from dotenv import load_dotenv
 from langchain_google_genai import ChatGoogleGenerativeAI
-from langchain_core.prompts import ChatPromptTemplate, MessagePlaceholder
+from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.output_parsers import StrOutputParser
-from langchain_core.schema import HumanMessage, AIMessage
+from langchain_core.messages import HumanMessage, AIMessage
 
 # 1. Load environment variables from .env
 load_dotenv()
@@ -22,7 +22,7 @@ prompt = ChatPromptTemplate.from_messages([
         "whose job is to help users with their inquiries, "
         "only regarding the products and services offered by our company."
     ),
-    MessagePlaceholder(variable_name="chat_history"),
+    MessagesPlaceholder(variable_name="chat_history"),
     ("user", "{user_input}")
 ])
 
