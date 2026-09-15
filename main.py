@@ -1,7 +1,9 @@
 import os
 from dotenv import load_dotenv
 from langchain_google_genai import ChatGoogleGenerativeAI
-from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.prompts import ChatPromptTemplate, MessagePlaceholder
+from langchain_core.output_parsers import StrOutputParser
+from langchain_core.schema import HumanMessage, AIMessage
 
 # 1. Load environment variables from .env
 load_dotenv()
@@ -20,8 +22,11 @@ prompt = ChatPromptTemplate.from_messages([
         "whose job is to help users with their inquiries, "
         "only regarding the products and services offered by our company."
     ),
+    MessagePlaceholder(variable_name="chat_history"),
     ("user", "{user_input}")
 ])
+
+chain = prompt | llm | StrOutputParser()
 
 # 4. Start a loop to continuously accept user input and generate responses
 
@@ -34,12 +39,10 @@ while True:
         print("Exiting the chatbot. Goodbye!")
         break
 
-    chat_history.append({"role": "user", "content": user_input})
-    # 4. Format the prompt with an actual input to see what it produces
-    formatted = prompt.invoke({"user_input": chat_history[-1]["content"]})
-
-    # 5. Call it with the formatted prompt and print the result
-    response = llm.invoke(formatted)
+    # 5. Invoke the chain with the user input to see what it produces
+    response = chain.invoke({"user_input": user_input, "chat_history": chat_history})
+    chat_history.append(HumanMessage(content=user_input))
+    chat_history.append(AIMessage(content=response))
 
     # 6. Print the response from the AI
-    print("AI:" + response.content)
+    print("AI:" + response)
