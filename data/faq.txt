@@ -1,0 +1,41 @@
+Q: How do I order a product?
+A: Go to the product page, search for your product, and click it to select the quantity you want, then add it to your cart. Once you are done shopping, click the cart icon in the top right corner. This opens the order page where you can check your order carefully. Place the order and pick a suitable payment method. Once payment is complete, you will receive an order number and a payment number.
+
+Q: How long will delivery take?
+A: Delivery within Pakistan takes up to 2 working days. For international delivery, please allow at least two weeks for the order to reach you.
+
+Q: Is delivery free?
+A: Delivery is free in all major Pakistani cities, including Islamabad (ICT), Rawalpindi, Lahore Division, Karachi Division, Multan City, Peshawar, Faisalabad, Hyderabad, Jhelum, Attock, Mardan, Sukkur, Bahawalpur, and Mianwali.
+
+Q: How can I track my delivery?
+A: You can track your delivery using the tracking feature in the application. Simply enter your order number to see its current status.
+
+Q: What payment methods do you accept?
+A: We accept credit and debit cards, bank transfers, mobile wallet payments (such as JazzCash and Easypaisa), and cash on delivery in select cities.
+
+Q: Can I cancel my order after placing it?
+A: Yes, you can cancel your order free of charge as long as it has not yet been shipped. Go to your order history, select the order, and click "Cancel Order." Once the order has shipped, it can no longer be cancelled.
+
+Q: What is your return and refund policy?
+A: You can return most products within 7 days of delivery if they are unused and in their original packaging. Once we receive and inspect the returned item, refunds are processed within 5-7 business days to your original payment method.
+
+Q: What should I do if I receive a damaged or wrong item?
+A: If you receive a damaged or incorrect item, please contact support within 48 hours of delivery with your order number and photos of the item. We will arrange a free replacement or a full refund.
+
+Q: Do you offer cash on delivery?
+A: Cash on delivery is available in major cities including Islamabad, Rawalpindi, Lahore, and Karachi. It may not be available in all remote areas.
+
+Q: How do I change my delivery address after placing an order?
+A: You can change your delivery address before the order is shipped by going to your order details page and selecting "Edit Address." Once the order has shipped, the address cannot be changed.
+
+Q: How can I contact customer support?
+A: You can reach our customer support team through the in-app chat, by emailing support@example.com, or by calling our helpline, which is available daily from 9 AM to 9 PM.
+
+Q: How do I talk to a human agent instead of the chatbot?
+A: You can request a human agent at any time during a chat by typing "talk to a human," and one of our support representatives will join the conversation.
+
+Q: Do you offer discounts or promo codes?
+A: Yes, we regularly run promotions and offer promo codes. You can enter a valid promo code at checkout in the "Apply Coupon" field before completing your payment.
+
+Q: Is my payment information secure?
+A: Yes, all payments are processed through encrypted, secure payment gateways, and we do not store your full card details on our servers.

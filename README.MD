@@ -9,6 +9,7 @@ This project was built incrementally, component by component, to gain practical 
 🚧 **In progress** — core chatbot is functional; RAG (retrieval) is being added; Agents/Tools are pending.
 
 | Component | Status | Notes |
+
 |---|---|---|
 | Models | ✅ Done | `ChatGoogleGenerativeAI` (`gemini-2.5-flash`) |
 | Prompts | ✅ Done | `ChatPromptTemplate` with a customer-service system prompt |
@@ -28,7 +29,6 @@ This project was built incrementally, component by component, to gain practical 
 
 ## Project Structure
 
-```
 .
 ├── main.py          # Core chatbot logic: build_chain(), get_response()
 ├── app.py           # FastAPI backend, /chat endpoint, session management
@@ -37,33 +37,34 @@ This project was built incrementally, component by component, to gain practical 
 │   └── faq.txt        # Knowledge base source for RAG (FAQs/policies)
 ├── .env               # GOOGLE_API_KEY (not committed)
 └── README.md
-```
 
 ## Setup
 
 1. **Clone and create a virtual environment:**
+
    ```bash
    python -m venv .venv
    source .venv/bin/activate
    ```
 
 2. **Install dependencies:**
+
    ```bash
-   pip install langchain langchain-google-genai python-dotenv fastapi uvicorn langchain-community faiss-cpu langchain-text-splitters
+   pip install -r requirements.txt
    ```
 
 3. **Add your Gemini API key** in a `.env` file at the project root:
-   ```
    GOOGLE_API_KEY=your_key_here
-   ```
    Get a key from [Google AI Studio](https://aistudio.google.com/apikey).
 
 ## Running
 
 **Backend (FastAPI):**
+
 ```bash
 uvicorn app:app --reload
 ```
+
 - API docs: `http://127.0.0.1:8000/docs`
 - Chat endpoint: `POST /chat` — body: `{"session_id": "...", "message": "..."}`
 
@@ -71,6 +72,7 @@ uvicorn app:app --reload
 Open `index.html` directly in a browser. It talks to the FastAPI backend at `http://127.0.0.1:8000`.
 
 **CLI (for quick testing without the web layer):**
+
 ```bash
 python main.py
 ```
