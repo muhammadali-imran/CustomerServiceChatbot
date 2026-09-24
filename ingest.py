@@ -1,50 +1,45 @@
 import os
 from dotenv import load_dotenv
-from langchain_community.document_loaders import TextLoader
-from langchain_core.text_splitter import RecursiveCharacterTextSplitter
-from langchain_google_genai import ChatGoogleGenerativeAIEmbeddings
+from langchain_core.documents import Document
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain_chroma import Chroma
 
 load_dotenv()
 
-def load_and_split_documents(file_path:str , chunk_size:int = 500, chunk_overlap:int = 50):
+def load_and_split_documents(file_path: str, chunk_size: int = 500, chunk_overlap: int = 50):
     """
-    Loads a text document from the specified file path, splits it into chunks, and returns the chunks.
-    Args:
-        file_path (str): The path to the text document.
-        chunk_size (int): The maximum size of each chunk. Default is 500 characters.
-        chunk_overlap (int): The number of overlapping characters between chunks. Default is 50 characters.
-    Returns:
-        list: A list of text chunks.
+    Loads a text document, splits it into chunks, and returns the chunks.
     """
-    #load the document
-    loader = TextLoader(file_path)
-    documents = loader.load()
+    if not os.path.exists(file_path):
+        raise FileNotFoundError(f"Source file not found at: {file_path}")
+
+    # Read file directly to bypass langchain-community deprecation warnings
+    with open(file_path, "r", encoding="utf-8") as f:
+        text = f.read()
+
+    documents = [Document(page_content=text, metadata={"source": file_path})]
 
     splitter = RecursiveCharacterTextSplitter(chunk_size=chunk_size, chunk_overlap=chunk_overlap)
-    chunk = splitter.split_documents(documents)
-    return chunk
+    chunks = splitter.split_documents(documents)
+    return chunks
 
-def build_vector_store(chunks, persist_directory:str = "./chroma_db"):
+def build_vector_store(chunks, persist_directory: str = "./chroma_db"):
     """
-    Builds a vector store from the provided text chunks and persists it to disk.
-    Args:
-        chunks (list): A list of text chunks.
-        persist_directory (str): The directory where the vector store will be persisted. Default is "./chroma_db".
-    Returns:
-        Chroma: The built vector store.
+    Builds a Chroma vector store from text chunks and automatically saves it to disk.
     """
+    if not os.getenv("GOOGLE_API_KEY"):
+        raise ValueError("GOOGLE_API_KEY is missing. Check your .env file.")
+
     # Create embeddings using Google Generative AI
-    embeddings = ChatGoogleGenerativeAIEmbeddings(
-        model="gemini-2.5-flash",
-        google_api_key=os.getenv("GOOGLE_API_KEY")
-    )
+    embeddings = GoogleGenerativeAIEmbeddings(model="models/gemini-embedding-001")
 
-    # Create a Chroma vector store from the chunks and embeddings
-    vector_store = Chroma.from_documents(chunks, embeddings, persist_directory=persist_directory)
-    
-    # Persist the vector store to disk
-    vector_store.persist()
+    # Chroma auto-persists when persist_directory is provided
+    vector_store = Chroma.from_documents(
+        documents=chunks,
+        embedding=embeddings,
+        persist_directory=persist_directory
+    )
     
     return vector_store
 
@@ -53,5 +48,5 @@ if __name__ == "__main__":
     print(f"Loaded {len(chunks)} chunks.")
 
     vectorstore = build_vector_store(chunks)
-    print("Vectorstore built and persisted to ./chroma_db")
+    print("Vectorstore successfully built and persisted to ./chroma_db")
 
